@@ -36,6 +36,7 @@ class SignupRequest extends FormRequest
         return [
             'name.string' => 'EL nombre es obligatorio',
             'name.required' => 'EL nombre es obligatorio',
+            'email.unique' => 'Este correo ya esta registrado',
             'password.min' => 'La contrasena debe tener :min caracteres'
         ];
     }
