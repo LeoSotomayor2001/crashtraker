@@ -33,10 +33,16 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+    
+
 
     #[Override]
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VeryfyEmail);
+    }
+
+    public function budgets(){
+        return $this->hasMany(Budget::class);
     }
 }
