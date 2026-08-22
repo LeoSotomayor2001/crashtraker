@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class BudgetController extends Controller
 {
-   
+
     public function index()
     {
-        return view('dashboard');
+        $budgets = Auth::user()->budgets()->get();
+
+        return view('dashboard', ['budgets' => $budgets]);
     }
 
     public function create()
@@ -25,8 +27,8 @@ class BudgetController extends Controller
      */
     public function store(BudgetRequest $request)
     {
-        $data= $request->validated();
-        
+        $data = $request->validated();
+
         // $budget= Budget::create([
         //     'name' => $data['name'],
         //     'amount' => $data['amount'],
@@ -34,7 +36,7 @@ class BudgetController extends Controller
         //     'user_id' => Auth::id()
         // ]);
 
-        $budget= Auth::user()->budgets()->create($data);
+        $budget = Auth::user()->budgets()->create($data);
 
         return redirect()->route('dashboard');
     }
