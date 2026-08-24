@@ -25,7 +25,7 @@
             <nav class="flex flex-col lg:flex-row gap-4 items-center">
                 @auth
                     <p class="text-white text-xl">Hola: {{ auth()->user()->name }}</p>
-                    <x-dropdown-menu/>
+                    <x-dropdown-menu />
                 @else
                     @if (Route::has('login'))
                         <a href="{{ route('login') }}" class="text-white font-bold uppercase p-2">
@@ -40,6 +40,12 @@
             </nav>
         </div>
     </header>
+    @if (session('success'))
+    <div class="max-w-5xl mx-auto">
+        <x-alert :message="session('success')" />
+
+    </div>
+    @endif
     @yield('contents')
 </body>
 
