@@ -40,19 +40,21 @@
                                 <tr class="flex items-center justify-between">
                                     <td class="pt-10 pb-5 px-10 relative">
                                         <p
-                                        class=" absolute top-0 left-0 inline-block px-3 py-1 rounded-br-2xl text-sm font-medium w-40
+                                            class=" absolute top-0 left-0 inline-block px-3 py-1 rounded-br-2xl text-sm font-medium w-40
                                         {{ $budget->isGeneral() ? 'bg-indigo-100 text-indigo-800' : 'bg-orange-100 text-orange-800' }}
                                     ">
-                                    {{ $budget->isGeneral() ? 'General' : 'Proyecto' }}
+                                            {{ $budget->isGeneral() ? 'General' : 'Proyecto' }}
                                         </p>
-                                        <a class="text-2xl font-bold text-gray-500 block" href="">{{ $budget->name }}</a>
+                                        <a class="text-2xl font-bold text-gray-500 block"
+                                            href="">{{ $budget->name }}</a>
                                         <p class="text-lg text-gray-500">${{ $budget->amount }}</p>
                                     </td>
                                     <td class="py-6 px-10 flex justify-end gap-3">
-                                        <x-budget-dropdown :budget="$budget"/>
+                                        <x-budget-dropdown :budget="$budget" />
+                                        <x-confirm-delete :id="'delete-dialog-' . $budget->id" title="Eliminar Presupuesto" message="Esto no se puede deshacer"
+                                            :action="route('budget.destroy',$budget)" />
                                     </td>
                                 </tr>
-                                
                             @endforeach
                         </tbody>
                     </table>
