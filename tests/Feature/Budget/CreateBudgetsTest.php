@@ -47,3 +47,17 @@ it('un presupuesto creado se asigna al usuario autenticado', function (){
     $budget=Budget::first();
     expect($budget->user_id)->toBe($user->id);
 });
+
+
+it('un presupuesto no puede ser creado por  usuario no verificado', function (){
+    $user = User::factory()->create([
+        'email_verified_at' => null
+    ]);
+     $response=$this->actingAs($user)->post(route('budgets.store',[
+        'name' => 'boda',
+        'amount' => 222,
+        'type' => 'goal'
+    ]));
+    
+    $response->assertRedirect(route('verification.notice'));
+});
