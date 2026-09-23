@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }} - @yield('title') </title>
 
     @fonts
@@ -41,10 +41,10 @@
         </div>
     </header>
     @if (session('success'))
-    <div class="max-w-5xl mx-auto">
-        <x-alert :message="session('success')" />
+        <div class="max-w-5xl mx-auto">
+            <x-alert :message="session('success')" />
 
-    </div>
+        </div>
     @endif
     @yield('contents')
 </body>

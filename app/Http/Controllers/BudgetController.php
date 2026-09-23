@@ -45,7 +45,7 @@ class BudgetController extends Controller
 
     public function show(string $id)
     {
-        //
+        dd('desde show');
     }
 
     #[Authorize('update', 'budget')]
