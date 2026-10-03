@@ -7,6 +7,7 @@ use App\Models\Budget;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Attributes\Controllers\Authorize;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class BudgetController extends Controller
 {
@@ -42,10 +43,13 @@ class BudgetController extends Controller
         return redirect()->route('dashboard')->with('success', 'Presupuesto creado correctamente.');
     }
 
-
-    public function show(string $id)
+    #[Authorize('view', 'budget')]
+    public function show(Budget $budget)
     {
-        dd('desde show');
+
+        return Inertia::render('Budgets/Show', [
+            'budget' => $budget
+        ]);
     }
 
     #[Authorize('update', 'budget')]
@@ -68,6 +72,6 @@ class BudgetController extends Controller
     public function destroy(Budget $budget)
     {
         $budget->delete();
-         return redirect()->route('dashboard')->with('success', 'Presupuesto eliminado correctamente.');
+        return redirect()->route('dashboard')->with('success', 'Presupuesto eliminado correctamente.');
     }
 }

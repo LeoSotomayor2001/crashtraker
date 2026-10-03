@@ -29,4 +29,8 @@ class Budget extends Model
     {
         return $this->type === BudgetType::Goal;
     }
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }
