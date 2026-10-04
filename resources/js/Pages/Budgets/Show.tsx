@@ -2,15 +2,19 @@ import AmountDisplay from "@/components/AmountDisplay";
 import ExpenseModal from "@/components/ExpenseModal";
 import { useExpenseModalStore } from "@/stores/expense-modal-store";
 import { Budget } from "@/types/budget";
+import { Category } from "@/types/category";
 import { Head } from '@inertiajs/react';
 
 
 type Props = {
   budget: Budget
+  categories: Category[]
 }
-export default function Show({ budget }: Props) {
+export default function Show({ budget,categories }: Props) {
 
   const openCreateModal=useExpenseModalStore(state => state.openCreateModal)
+  useExpenseModalStore.getState().setBudget(budget)
+  useExpenseModalStore.getState().setCategories(categories)
   return (
     <>
       <Head title={`Presupuesto: ${budget.name}`} />
