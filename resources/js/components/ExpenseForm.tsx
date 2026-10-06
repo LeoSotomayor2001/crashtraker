@@ -1,12 +1,27 @@
 import { useExpenseModalStore } from "@/stores/expense-modal-store";
+import { useForm } from "@inertiajs/react";
+import { SubmitEvent } from "react";
+import Ziggy from '@/ziggy'
+import {route} from 'ziggy-js'
+
 
 export default function ExpenseForm() {
     // const budget= useExpenseModalStore(state => state.budget);
     // const categories= useExpenseModalStore(state => state.categories);
     const { budget, categories } = useExpenseModalStore(state => state)
+    const { data, setData,post } = useForm({
+        name: '',
+        amount: '',
+        category: ''
+    })
+
+    const submit= (e: SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        post(route('expenses.store',budget?.id))
+    }
     return (
         <div className="p-4 sm:p-10 flex justify-center">
-            <form className="flex flex-col space-y-6 w-full max-w-lg bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-800 transition-colors">
+            <form onSubmit={submit} className="flex flex-col space-y-6 w-full max-w-lg bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-800 transition-colors">
 
                 <div className="space-y-2">
                     <label
@@ -18,6 +33,8 @@ export default function ExpenseForm() {
                     <input
                         id="name"
                         type="text"
+                        value={data.name}
+                        onChange={e => setData('name', e.target.value)}
                         placeholder="Ej. Compras del supermercado"
                         className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
                     />
@@ -34,6 +51,8 @@ export default function ExpenseForm() {
                         id="amount"
                         type="number"
                         min="0"
+                        value={data.amount}
+                        onChange={e => setData('amount', e.target.value)}
                         step="0.01"
                         placeholder="0.00"
                         className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
@@ -50,6 +69,8 @@ export default function ExpenseForm() {
                         <select
                             name="category"
                             id="category"
+                            value={data.category}
+                            onChange={e => setData('category', e.target.value)}
                             className='w-full border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-colors'
                         >
                             <option value="" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
