@@ -1,23 +1,34 @@
 import { useExpenseModalStore } from "@/stores/expense-modal-store";
 import { useForm } from "@inertiajs/react";
 import { SubmitEvent } from "react";
+import { toast } from "react-toastify";
 import Ziggy from '@/ziggy'
-import {route} from 'ziggy-js'
+import { route } from 'ziggy-js'
+import InputError from "./InputError";
 
 
 export default function ExpenseForm() {
     // const budget= useExpenseModalStore(state => state.budget);
     // const categories= useExpenseModalStore(state => state.categories);
     const { budget, categories } = useExpenseModalStore(state => state)
-    const { data, setData,post } = useForm({
+    const closeModal = useExpenseModalStore(state => state.closeModal)
+    const { data, setData, post, errors, reset, processing } = useForm({
         name: '',
         amount: '',
         category: ''
     })
 
-    const submit= (e: SubmitEvent<HTMLFormElement>) => {
+    const submit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
-        post(route('expenses.store',budget?.id))
+        post(route('expenses.store', budget?.id), {
+            onSuccess: (page) => {
+                const success = page.props.flash?.success
+                if (success) toast.success(success)
+                closeModal()
+                reset()
+            }
+        })
+
     }
     return (
         <div className="p-4 sm:p-10 flex justify-center">
@@ -38,6 +49,7 @@ export default function ExpenseForm() {
                         placeholder="Ej. Compras del supermercado"
                         className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
                     />
+                    {errors.name && <InputError>{errors.name}</InputError>}
                 </div>
 
                 <div className="space-y-2">
@@ -57,6 +69,7 @@ export default function ExpenseForm() {
                         placeholder="0.00"
                         className="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
                     />
+                    {errors.amount && <InputError>{errors.amount}</InputError>}
                 </div>
                 {budget?.type === 'general' && (
                     <div className='space-y-3'>
@@ -86,13 +99,17 @@ export default function ExpenseForm() {
                                 </option>
                             ))}
                         </select>
+                        {errors.category && <InputError>{errors.category}</InputError>}
                     </div>
                 )}
                 <button
+                    disabled={processing}
                     type="submit"
-                    className="mt-2 bg-purple-700 hover:bg-purple-800 active:bg-purple-900 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-purple-700/25 transition-all duration-200 cursor-pointer text-center"
+                    className={`${processing ? 'bg-purple-950 opacity-60 cursor-not-allowed': 'bg-purple-700 hover:bg-purple-800 active:bg-purple-900 cursor-pointer'} mt-2  text-white font-bold py-3.5 px-4 rounded-xl shadow-lg 
+                    shadow-purple-700/25 transition-all 
+                    duration-200  text-center`}
                 >
-                    Agregar Gasto
+                    {processing ? 'Guardando' : 'Agregar Gasto'}
                 </button>
 
             </form>

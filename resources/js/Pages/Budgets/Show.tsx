@@ -1,4 +1,5 @@
 import AmountDisplay from "@/components/AmountDisplay";
+import {ToastContainer} from 'react-toastify'
 import ExpenseModal from "@/components/ExpenseModal";
 import { useExpenseModalStore } from "@/stores/expense-modal-store";
 import { Budget } from "@/types/budget";
@@ -50,6 +51,7 @@ export default function Show({ budget,categories }: Props) {
         </div>
       </section>
       <ExpenseModal />
+      <ToastContainer/>
     </>
   )
 }
