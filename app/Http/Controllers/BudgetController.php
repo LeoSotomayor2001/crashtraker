@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ExpenseCategory;
 use App\Http\Requests\BudgetRequest;
 use App\Models\Budget;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Attributes\Controllers\Authorize;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,13 @@ class BudgetController extends Controller
     public function show(Budget $budget)
     {
         $categories= collect(ExpenseCategory::cases());
+        // $expenses= Expense::where('budget_id',$budget->id)->latest()->get();
+        // $expenses=$budget->expenses()->get();
+
+        $budget->load([
+            'expenses' => fn($query) => $query->latest()
+        ]);
+        
         return Inertia::render('Budgets/Show', [
             'budget' => $budget,
             'categories' => $categories->map(fn ($category) => [
