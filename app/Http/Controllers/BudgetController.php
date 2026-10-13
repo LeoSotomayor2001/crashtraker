@@ -55,9 +55,10 @@ class BudgetController extends Controller
         $budget->load([
             'expenses' => fn($query) => $query->latest()
         ]);
-        
+        $spent=$budget->expenses->sum('amount');
         return Inertia::render('Budgets/Show', [
             'budget' => $budget,
+            'spent' => $spent,
             'categories' => $categories->map(fn ($category) => [
                 'value' => $category->value,
                 'label' => $category->label()

@@ -1,0 +1,21 @@
+import {CircularProgressbar, buildStyles} from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
+
+type Props = {
+    percentageUsed: number
+}
+export default function ProgressBar({percentageUsed}: Props) {
+ 
+  return (
+    <CircularProgressbar
+        value={percentageUsed}
+        styles={buildStyles({
+            pathColor:'#3c0366',
+            trailColor:'#f5f5f5',
+            textSize:8,
+            textColor: '#3c0366'
+        })}
+        text={`${percentageUsed}% Gastado`}
+    />
+  )
+}

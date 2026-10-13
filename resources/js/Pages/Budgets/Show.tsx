@@ -6,18 +6,34 @@ import { Budget } from "@/types/budget";
 import { Category } from "@/types/category";
 import { Head } from '@inertiajs/react';
 import { formatDate } from "@/utils";
+import ProgressBar from "@/components/ProgressBar";
+import { useEffect, useState } from "react";
 
 
 type Props = {
   budget: Budget
   categories: Category[]
+  spent: string
 }
-export default function Show({ budget, categories }: Props) {
+export default function Show({ budget, categories, spent }: Props) {
 
   const openCreateModal = useExpenseModalStore(state => state.openCreateModal)
   useExpenseModalStore.getState().setBudget(budget)
   useExpenseModalStore.getState().setCategories(categories)
 
+  const percentageUsed= +((+spent / +budget.amount) * 100).toFixed(2)
+  const remaining= +budget.amount - +spent
+
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const timeout= setTimeout(() => {
+      setProgress(percentageUsed)
+    }, 150);
+
+    return () => clearTimeout(timeout)
+  }, [percentageUsed])
+  
   return (
     <>
       <Head title={`Presupuesto: ${budget.name}`} />
@@ -34,11 +50,11 @@ export default function Show({ budget, categories }: Props) {
       </section>
 
       <main className='grid grid-cols-1 md:grid-cols-2 items-center gap-20 mt-10'>
-
+        <ProgressBar percentageUsed={progress}></ProgressBar>
         <div className='space-y-5'>
           <AmountDisplay label="Presupuesto" amount={+budget.amount} />
-          <AmountDisplay label="Gastado" amount={0} />
-          <AmountDisplay label="Restante" amount={0} />
+          <AmountDisplay label="Gastado" amount={+spent} />
+          <AmountDisplay label="Restante" amount={remaining} />
         </div>
       </main>
       <section className="p-10 lg:px-5 shadow-lg mt-10">
