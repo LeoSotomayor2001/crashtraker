@@ -5,7 +5,7 @@
 @endsection
 
 @section('auth-contents')
-    <p class="mt-5 text-lg">Tu cuenta fue creada con exito. Ahora sole debes confirmarla, revisa tu email.</p>
+    <p class="mt-5 text-lg text-gray-700 dark:text-gray-300">Tu cuenta fue creada con exito. Ahora sole debes confirmarla, revisa tu email.</p>
 
     <form method="POST" action="{{ route('verification.send') }}">
         <input type="submit" value="Reenviar correo de verificacion"

@@ -1,7 +1,41 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+
+@layer base {
+    html {
+        @apply bg-white text-gray-900;
+        color-scheme: light;
+    }
+
+    html.dark {
+        @apply bg-gray-950 text-gray-100;
+        color-scheme: dark;
+    }
+
+    body {
+        @apply min-h-screen bg-white text-gray-900;
+    }
+
+    html.dark body {
+        @apply bg-gray-950 text-gray-100;
+    }
+}
+
+:root {
+    --progress-path-color: #3c0366;
+    --progress-trail-color: #f5f5f5;
+    --progress-text-color: #3c0366;
+}
+
+.dark {
+    --progress-path-color: #c084fc;
+    --progress-trail-color: #334155;
+    --progress-text-color: #e9d5ff;
+}
 
 @theme {
     --font-sans: "Outfit", sans-serif;

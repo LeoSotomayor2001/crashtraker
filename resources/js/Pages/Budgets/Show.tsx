@@ -8,6 +8,7 @@ import { Head } from '@inertiajs/react';
 import { formatDate } from "@/utils";
 import ProgressBar from "@/components/ProgressBar";
 import { useEffect, useState } from "react";
+import ExpenseDropdown from "@/components/ExpenseDropdown";
 
 
 type Props = {
@@ -40,7 +41,7 @@ export default function Show({ budget, categories, spent }: Props) {
       <section className="sm:flex sm:items-center mt-10">
         <div className="sm:flex-auto">
           <h1 className="font-bold text-4xl">Presupuesto: {budget.name}</h1>
-          <p className="mt-2 text-xl text-gray-500">Maneja tu Presupuesto, añade, quita o edita tus gastos aquí.</p>
+          <p className="mt-2 text-xl text-gray-500 dark:text-gray-400">Maneja tu Presupuesto, añade, quita o edita tus gastos aquí.</p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <a
@@ -57,7 +58,7 @@ export default function Show({ budget, categories, spent }: Props) {
           <AmountDisplay label="Restante" amount={remaining} />
         </div>
       </main>
-      <section className="p-10 lg:px-5 shadow-lg mt-10">
+      <section className="mt-10 rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-200 sm:p-10 lg:px-5 dark:bg-gray-900 dark:ring-gray-800">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold">Gastos</h2>
           <button
@@ -71,7 +72,7 @@ export default function Show({ budget, categories, spent }: Props) {
         {budget.expenses.length ? (
 
           <div className="mt-8 flow-root ">
-            <div className=" ring-1 ring-gray-300 rounded-lg ">
+            <div className="rounded-lg bg-white ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
               <div className="inline-block min-w-full align-middle">
                 <table className="relative min-w-full">
                   <thead>
@@ -84,7 +85,7 @@ export default function Show({ budget, categories, spent }: Props) {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-300 ">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
                     {budget.expenses.map(expense => (
 
                       <tr key={expense.id} className='flex justify-between items-center '>
@@ -95,12 +96,12 @@ export default function Show({ budget, categories, spent }: Props) {
                             </p>
 
                           )}
-                          <p className="text-xl font-bold text-gray-500">{expense.name}</p>
-                          <p className="text-lg text-gray-500">{expense.amount}</p>
-                          <p className='text-sm text-gray-400'>Agregado el: {formatDate(expense.created_at)}</p>
+                          <p className="text-xl font-bold text-gray-700 dark:text-gray-200">{expense.name}</p>
+                          <p className="text-lg text-gray-600 dark:text-gray-300">{expense.amount}</p>
+                          <p className='text-sm text-gray-500 dark:text-gray-400'>Agregado el: {formatDate(expense.created_at)}</p>
                         </td>
                         <td className="py-6 px-10 flex justify-end gap-3">
-
+                          <ExpenseDropdown expense={expense}/>
                         </td>
                       </tr>
                     ))}

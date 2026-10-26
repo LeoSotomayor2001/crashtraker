@@ -10,10 +10,10 @@ export default function ProgressBar({percentageUsed}: Props) {
     <CircularProgressbar
         value={percentageUsed}
         styles={buildStyles({
-            pathColor:'#3c0366',
-            trailColor:'#f5f5f5',
+            pathColor:'var(--progress-path-color)',
+            trailColor:'var(--progress-trail-color)',
             textSize:8,
-            textColor: '#3c0366'
+            textColor: 'var(--progress-text-color)'
         })}
         text={`${percentageUsed}% Gastado`}
     />

@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <title>{{ config('app.name', 'Laravel') }} - @yield('title') </title>
 
+    <x-theme-init />
+
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -24,6 +26,7 @@
                 <img src="{{ asset('img/logo.svg') }}" alt="logo" class="w-full block">
             </div>
             <nav class="flex flex-col lg:flex-row gap-4 items-center">
+                <x-theme-toggle />
                 @auth
                     <p class="text-white text-xl">Hola: {{ auth()->user()->name }}</p>
                     <x-dropdown-menu />

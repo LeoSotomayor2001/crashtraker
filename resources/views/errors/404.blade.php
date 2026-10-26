@@ -5,7 +5,7 @@
 @section('contents')
     <div class="flex flex-col items-center justify-center min-h-[60vh]">
         <h1 class="text-6xl font-bold">404</h1>
-        <p class="mt-4 text-xl text-gray-600">
+        <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">
             La página no existe
         </p>
     </div>

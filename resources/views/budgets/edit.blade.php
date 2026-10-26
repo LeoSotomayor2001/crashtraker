@@ -8,7 +8,7 @@
     <div class="sm:flex sm:items-center mt-10">
         <div class="sm:flex-auto">
             <h1 class="font-bold text-4xl">Editar Presupuesto: {{ $budget->name }}</h1>
-            <p class="mt-2 text-xl text-gray-500">Realiza ajustes a tu presupuesto</p>
+            <p class="mt-2 text-xl text-gray-500 dark:text-gray-400">Realiza ajustes a tu presupuesto</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <a href="{{ route('dashboard') }}"

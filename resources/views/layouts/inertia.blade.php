@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <x-theme-init />
     @routes()
     @viteReactRefresh
     <x-inertia::head />
@@ -29,10 +30,12 @@
                 </a>
             </div>
             <nav class="flex flex-col items-center lg:flex-row gap-4 ">
+                <x-theme-toggle />
                 @auth
                     <p class="text-white text-xl">Hola: {{ auth()->user()->name }}</p>
                     <x-dropdown-menu />
                 @endauth
+            </nav>
         </div>
     </header>
 

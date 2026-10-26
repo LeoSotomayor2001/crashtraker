@@ -5,7 +5,7 @@
         id="name" 
         type="text" 
         placeholder="Nombre del Presupuesto. Ej. Boda, Casa, Graduación, Semana"
-        class="w-full border border-gray-300 p-3 rounded-lg" 
+        class="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 placeholder:text-gray-400 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500"
         name="name" 
         value="{{ old('name',$budget?->name) }}"
     >
@@ -23,7 +23,7 @@
         min="0" 
         step="1" 
         placeholder="Cantidad de Presupuesto"
-        class="w-full border border-gray-300 p-3 rounded-lg" 
+        class="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 placeholder:text-gray-400 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500"
         name="amount"
             value="{{ old('amount',$budget?->amount) }}"
     />
@@ -52,7 +52,7 @@
     </div>
 
     
-    <select name="type" class="w-full border border-gray-300 p-3 rounded-lg">
+    <select name="type" class="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100">
         <option value="">Tipo de Presupuesto</option>
         <option value="general" {{ old('type',$budget->type->value ?? '') === 'general' ? 'selected' : '' }}>General - Con Categorías</option>
         <option value="goal" {{ old('type',$budget->type->value ?? '') === 'goal' ? 'selected' : '' }}>Proyecto</option>

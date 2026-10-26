@@ -8,7 +8,7 @@
     <div class="sm:flex sm:items-center mt-10">
         <div class="sm:flex-auto">
             <h1 class="font-bold text-4xl">Crear Presupuesto</h1>
-            <p class="mt-2 text-xl text-gray-500">Crear un Presupuesto es sencillo: añade un nombre y cantidad.</p>
+            <p class="mt-2 text-xl text-gray-500 dark:text-gray-400">Crear un Presupuesto es sencillo: añade un nombre y cantidad.</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <a href="{{ route('dashboard') }}"
