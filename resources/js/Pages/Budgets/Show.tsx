@@ -9,6 +9,7 @@ import { formatDate } from "@/utils";
 import ProgressBar from "@/components/ProgressBar";
 import { useEffect, useState } from "react";
 import ExpenseDropdown from "@/components/ExpenseDropdown";
+import DeleteExpenseModal from "@/components/DeleteExpenseModal";
 
 
 type Props = {
@@ -123,6 +124,7 @@ export default function Show({ budget, categories, spent }: Props) {
 
       </section>
       <ExpenseModal />
+      <DeleteExpenseModal/>
       <ToastContainer />
     </>
   )
