@@ -10,6 +10,7 @@ import ProgressBar from "@/components/ProgressBar";
 import { useEffect, useState } from "react";
 import ExpenseDropdown from "@/components/ExpenseDropdown";
 import DeleteExpenseModal from "@/components/DeleteExpenseModal";
+import CashTrackrAgent from "@/components/CashTrakrAgent";
 
 
 type Props = {
@@ -123,6 +124,7 @@ export default function Show({ budget, categories, spent }: Props) {
         )}
 
       </section>
+      <CashTrackrAgent budgetId={budget.id}/>
       <ExpenseModal />
       <DeleteExpenseModal/>
       <ToastContainer />
