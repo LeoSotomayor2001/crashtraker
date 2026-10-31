@@ -4,7 +4,7 @@ import ExpenseModal from "@/components/ExpenseModal";
 import { useExpenseModalStore } from "@/stores/expense-modal-store";
 import { Budget } from "@/types/budget";
 import { Category } from "@/types/category";
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { formatDate } from "@/utils";
 import ProgressBar from "@/components/ProgressBar";
 import { useEffect, useState } from "react";
@@ -19,6 +19,8 @@ type Props = {
   spent: string
 }
 export default function Show({ budget, categories, spent }: Props) {
+
+  const {user} = usePage().props
 
   const openCreateModal = useExpenseModalStore(state => state.openCreateModal)
   useExpenseModalStore.getState().setBudget(budget)
@@ -124,7 +126,7 @@ export default function Show({ budget, categories, spent }: Props) {
         )}
 
       </section>
-      <CashTrackrAgent budgetId={budget.id}/>
+      <CashTrackrAgent budgetId={budget.id} name={user.name}/>
       <ExpenseModal />
       <DeleteExpenseModal/>
       <ToastContainer />
