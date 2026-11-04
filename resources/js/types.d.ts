@@ -1,15 +1,19 @@
 import '@inertiajs/core'
 
 declare module '@inertiajs/core' {
-    export interface InertiaConfig{
+    export interface InertiaConfig {
         sharedPageProps: {
             flash: {
-                success?:string
+                success?: string
             },
             user: {
-                id: number,
-                name: string,
-                email:string
+                user: {
+                    id: number,
+                    name: string,
+                    email: string
+                },
+                subscribed: boolean,
+                plan: string | null
             }
         }
     }

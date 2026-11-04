@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import ExpenseDropdown from "@/components/ExpenseDropdown";
 import DeleteExpenseModal from "@/components/DeleteExpenseModal";
 import CashTrackrAgent from "@/components/CashTrakrAgent";
+import PricingTable from "@/components/PricingTable";
 
 
 type Props = {
@@ -20,25 +21,24 @@ type Props = {
 }
 export default function Show({ budget, categories, spent }: Props) {
 
-  const {user} = usePage().props
-
+  const { user } = usePage().props
   const openCreateModal = useExpenseModalStore(state => state.openCreateModal)
   useExpenseModalStore.getState().setBudget(budget)
   useExpenseModalStore.getState().setCategories(categories)
 
-  const percentageUsed= +((+spent / +budget.amount) * 100).toFixed(2)
-  const remaining= +budget.amount - +spent
+  const percentageUsed = +((+spent / +budget.amount) * 100).toFixed(2)
+  const remaining = +budget.amount - +spent
 
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    const timeout= setTimeout(() => {
+    const timeout = setTimeout(() => {
       setProgress(percentageUsed)
     }, 150);
 
     return () => clearTimeout(timeout)
   }, [percentageUsed])
-  
+
   return (
     <>
       <Head title={`Presupuesto: ${budget.name}`} />
@@ -93,7 +93,7 @@ export default function Show({ budget, categories, spent }: Props) {
                     {budget.expenses.map(expense => (
 
                       <tr key={expense.id} className='flex justify-between items-center '>
-                        <td className={`${budget.type==='general' ? 'pt-10' :'pt-5'} pb-5 px-10 relative`}>
+                        <td className={`${budget.type === 'general' ? 'pt-10' : 'pt-5'} pb-5 px-10 relative`}>
                           {budget.type === 'general' && (
                             <p className={`absolute top-0 left-0 inline-block px-3 py-1 rounded-br-2xl text-sm font-medium w-40 ${expense.category_color}`}>
                               {expense.category_label}
@@ -105,7 +105,7 @@ export default function Show({ budget, categories, spent }: Props) {
                           <p className='text-sm text-gray-500 dark:text-gray-400'>Agregado el: {formatDate(expense.created_at)}</p>
                         </td>
                         <td className="py-6 px-10 flex justify-end gap-3">
-                          <ExpenseDropdown expense={expense}/>
+                          <ExpenseDropdown expense={expense} />
                         </td>
                       </tr>
                     ))}
@@ -126,9 +126,17 @@ export default function Show({ budget, categories, spent }: Props) {
         )}
 
       </section>
-      <CashTrackrAgent budgetId={budget.id} name={user.name}/>
+      {user.subscribed ? (
+        <CashTrackrAgent budgetId={budget.id} name={user.user.name} />
+
+      ) : (
+        <div className="mt-10">
+          <PricingTable />
+
+        </div>
+      )}
       <ExpenseModal />
-      <DeleteExpenseModal/>
+      <DeleteExpenseModal />
       <ToastContainer />
     </>
   )

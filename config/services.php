@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'stripe' => [
+        'price_ai_monthly' => env('STRIPE_PRICE_AI_MONTHLY'),
+        'price_ai_yearly' => env('STRIPE_PRICE_AI_YEARLY'),
 
+    ]
 ];
